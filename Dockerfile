@@ -17,7 +17,6 @@ ENV HELM_URL https://storage.googleapis.com/kubernetes-helm/${FILENAME}
 
 RUN curl -o /tmp/$FILENAME ${HELM_URL} \
   && tar -zxvf /tmp/${FILENAME} -C /tmp \
-    && mv /tmp/linux-amd64/helm /bin/helm \
-      && rm -rf /tmp
+    && mv /tmp/linux-amd64/helm /bin/helm
 
 RUN cabal update
