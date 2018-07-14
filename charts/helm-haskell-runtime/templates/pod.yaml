@@ -9,12 +9,12 @@ spec:
   volumes:
     - name: cabal
       configMap:
-        name: {{ template "fullname" . }}-cabal-files
+        name: {{ template "helm-haskell-runtime.name" . }}-cabal-files
 
   containers:
     - name: helm-haskell-runtime
       image: {{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
-      command: ["sh", "-c", "printenv; cd /cabal; bash /cabal/create.sh"]
+      command: ["sh", "-c", "printenv; mkdir /tmp ; cp -r /cabal /build ; cd /build ; cabal update ; cabal build"]
       volumeMounts:
         - mountPath: /cabal
           name: cabal

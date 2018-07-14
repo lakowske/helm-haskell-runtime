@@ -3,7 +3,7 @@
 
 name:                kube-watcher
 version:             0.1.0.0
-synopsis:            A controller that watches kubernetes a
+synopsis:            A controller that watches kubernetes a
 -- description:         
 license:             BSD3
 license-file:        LICENSE

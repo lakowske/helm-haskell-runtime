@@ -11,10 +11,11 @@ image:
   pullPolicy: IfNotPresent
 
 db:
-  secret: db-secret
+  secret: db-secret2
 
 secret:
-  name: db-secret
+  name: db-secret2
+  serviceName: db
   user: admin
   password: replace-me
   port: 5432
