@@ -1,10 +1,6 @@
-FROM alpine:edge
+FROM haskell:8.2
 
 MAINTAINER lakowske@gmail.com
-
-RUN apk --update add ghc cabal
-
-RUN apk --update add bash curl
 
 # Install kubectl
 RUN curl -L https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \

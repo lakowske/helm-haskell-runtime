@@ -1,4 +1,4 @@
-# Revision history for kube-watcher
+# Revision history for haskell-webtool
 
 ## 0.1.0.0  -- YYYY-mm-dd
 

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: {{ .Release.Name }}-cabal-pod
+  name: {{ .Release.Name }}-cabal-pod-{{ randAlphaNum 5 | lower }}
   labels:
     release: {{ .Release.Name | quote }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
@@ -10,15 +10,20 @@ spec:
     - name: cabal
       configMap:
         name: {{ template "helm-haskell-runtime.name" . }}-cabal-files
-
+    - name: local-volume
+      persistentVolumeClaim:
+        claimName: {{ .Values.persistence.pvc }}
   containers:
     - name: helm-haskell-runtime
       image: {{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
-      command: ["sh", "-c", "printenv; mkdir /tmp ; cp -r /cabal /build ; cd /build ; cabal update ; cabal build"]
+      command: ["sh", "-c", "printenv; cp -r /cabal /vol1  ; cd /vol1/cabal ; cabal update ; cabal install ; cabal build ; ./dist/build/haskell-webtool/haskell-webtool"]
+      # command: ["sh", "-c", "printenv; cd /vol1 ; cabal init -p haskell-cabal -l Copyright -a seth -e lakowske@gmail.com --is-executable -m --version=0.1.0 -u sethlakowske.com -s none -c none --main-is=Main.hs --source-dir=./ --language=Haskell2010 --no-comments ; cabal install ; cabal build ; ./dist/build/haskell-cabal/haskell-cabal"]
       volumeMounts:
         - mountPath: /cabal
           name: cabal
           readonly: true
+        - mountPath: /vol1
+          name: local-volume
       env:
         - name: DB_USER
           valueFrom:

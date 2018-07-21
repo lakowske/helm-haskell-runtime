@@ -5,9 +5,9 @@
 replicaCount: 1
 
 image:
-  registry: lakowske
-  repository: helm-haskell-runtime
-  tag: latest
+  registry: library
+  repository: haskell
+  tag: 8.2
   pullPolicy: IfNotPresent
 
 db:
@@ -21,6 +21,12 @@ secret:
   port: 5432
   serviceName: 'db-service'
   url: ''
+  
+persistence:
+  create: true
+  hostpath: /Users/home/k8s/haskell
+  pv: 'haskell-pv'
+  pvc: 'haskell-pvc'
   
   
 service:
