@@ -2,7 +2,7 @@ FROM haskell:8.2
 
 MAINTAINER lakowske@gmail.com
 
-RUN sudo apt-get install curl
+RUN apt-get install curl
 
 # Install kubectl
 RUN curl -L https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
